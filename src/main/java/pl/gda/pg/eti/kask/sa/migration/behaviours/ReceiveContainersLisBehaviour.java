@@ -53,8 +53,9 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
                 items.iterator().forEachRemaining(i -> {
                     locations.add((Location) i);
                 });
-                locations.remove(myAgent.here());
+                // locations.remove(myAgent.here());
                 myAgent.setLocations(locations);
+                myAgent.setLocationIndex(locations.indexOf(myAgent.here()));
                 myAgent.addBehaviour(new MigratingBehaviour(myAgent));
             } catch (Codec.CodecException | OntologyException ex) {
                 log.log(Level.SEVERE, null, ex);

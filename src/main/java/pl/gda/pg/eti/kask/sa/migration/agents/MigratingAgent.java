@@ -20,6 +20,10 @@ public class MigratingAgent extends Agent {
     @Setter
     @Getter
     private List<Location> locations;
+
+    @Setter
+    @Getter
+    private int locationIndex;
     
     public MigratingAgent() {
     }

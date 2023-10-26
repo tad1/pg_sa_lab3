@@ -16,6 +16,13 @@
             "name": "Container",
             "request": "launch",
             "mainClass": "jade.Boot",
+            "args": "-container"
+        },
+        {
+            "type": "java",
+            "name": "Container with wander",
+            "request": "launch",
+            "mainClass": "jade.Boot",
             "args": "-container -agents wander:pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent"
         },
 

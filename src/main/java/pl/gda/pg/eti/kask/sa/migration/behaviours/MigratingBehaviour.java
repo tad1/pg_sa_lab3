@@ -19,14 +19,20 @@ public class MigratingBehaviour extends Behaviour {
 
     @Override
     public void action() {
-        Location location = myAgent.getLocations().get(0);
-        myAgent.getLocations().remove(location);
+        int index = myAgent.getLocationIndex() + 1;
+        if(myAgent.getLocations().size() <= index){
+            index = 0;
+        }
+        
+        myAgent.setLocationIndex(index);
+
+        Location location = myAgent.getLocations().get(index);
         myAgent.doMove(location);
     }
 
     @Override
     public boolean done() {
-        return myAgent.getLocations().isEmpty();
+        return myAgent.getLocations().size() <= 1;
     }
 
 }
