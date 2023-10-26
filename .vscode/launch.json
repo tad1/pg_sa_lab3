@@ -6,10 +6,18 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Current File",
+            "name": "Main",
             "request": "launch",
             "mainClass": "jade.Boot",
             "args": "-gui"
-        }
+        },
+        {
+            "type": "java",
+            "name": "Container",
+            "request": "launch",
+            "mainClass": "jade.Boot",
+            "args": "-container -agents wander:pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent"
+        },
+
     ]
 }
