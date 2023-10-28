@@ -4,8 +4,10 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.JADEAgentManagement.QueryPlatformLocationsAction;
+
 import jade.domain.mobility.MobilityOntology;
 import jade.lang.acl.ACLMessage;
 import java.util.UUID;
@@ -18,7 +20,7 @@ import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
  * @author psysiu
  */
 @Log
-public class RequestContainersListBehaviour extends OneShotBehaviour {
+public class RequestContainersListBehaviour extends CyclicBehaviour {
 
     protected final MigratingAgent myAgent;
 
@@ -42,8 +44,8 @@ public class RequestContainersListBehaviour extends OneShotBehaviour {
 
         try {
             myAgent.getContentManager().fillContent(request, action);
-            myAgent.send(request);
             myAgent.addBehaviour(new ReceiveContainersLisBehaviour(myAgent, conversationId));
+            myAgent.send(request);
         } catch (Codec.CodecException | OntologyException ex) {
             log.log(Level.WARNING, ex.getMessage(), ex);
         }

@@ -49,14 +49,26 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
             try {
                 ContentElement ce = myAgent.getContentManager().extractContent(msg);
                 jade.util.leap.List items = ((Result) ce).getItems();
+
+
                 List<Location> locations = new ArrayList<>();
+                // TODO: check if that would check for refference
+                for (Location i : myAgent.getLocations()) {
+                    if(items.contains(i)){
+                        locations.add(i);
+                    }
+                }
+
                 items.iterator().forEachRemaining(i -> {
-                    locations.add((Location) i);
+                    if(!locations.contains(i)){
+                        locations.add((Location) i);
+                    }
                 });
+                
                 // locations.remove(myAgent.here());
                 myAgent.setLocations(locations);
                 myAgent.setLocationIndex(locations.indexOf(myAgent.here()));
-                myAgent.addBehaviour(new MigratingBehaviour(myAgent));
+
             } catch (Codec.CodecException | OntologyException ex) {
                 log.log(Level.SEVERE, null, ex);
             }

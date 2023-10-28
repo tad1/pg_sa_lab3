@@ -5,10 +5,13 @@ import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.Location;
 import jade.domain.mobility.MobilityOntology;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
+import pl.gda.pg.eti.kask.sa.migration.behaviours.MigratingBehaviour;
 import pl.gda.pg.eti.kask.sa.migration.behaviours.RequestContainersListBehaviour;
 
 /**
@@ -34,7 +37,12 @@ public class MigratingAgent extends Agent {
         ContentManager cm = getContentManager();
         cm.registerLanguage(new SLCodec());
         cm.registerOntology(MobilityOntology.getInstance());
-        this.addBehaviour(new RequestContainersListBehaviour(this));
+
+        this.locations = new ArrayList<>();
+        this.addBehaviour(new RequestContainersListBehaviour(this, 1000));
+        this.addBehaviour(new MigratingBehaviour(this, 400));
+
+
     }
 
     @Override
@@ -42,12 +50,12 @@ public class MigratingAgent extends Agent {
         super.afterMove();
         //restore state
         //resume threads
-        JOptionPane.showMessageDialog(null, "Przybywam!");
+        // JOptionPane.showMessageDialog(null, "Przybywam!");
     }
 
     @Override
     protected void beforeMove() {
-        JOptionPane.showMessageDialog(null, "Odchodzę!");
+        // JOptionPane.showMessageDialog(null, "Odchodzę!");
         //stop threads        
         //save state
         super.beforeMove();
