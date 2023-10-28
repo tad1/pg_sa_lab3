@@ -16,8 +16,28 @@
             "name": "Container",
             "request": "launch",
             "mainClass": "jade.Boot",
-            "args": "-container -agents wander:pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent"
+            "args": "-container",
+            "preLaunchTask": "sleep"
+        },
+        {
+            "type": "java",
+            "name": "Container with wander",
+            "request": "launch",
+            "mainClass": "jade.Boot",
+            "args": "-container -agents wander:pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent",
+            "preLaunchTask": "sleep",
         },
 
+    ],
+    "compounds": [
+        {
+            "name": "Run2",
+            "configurations": ["Main", "Container with wander"],
+            "preLaunchTask": "Kill All"
+        },{
+            "name": "Run4",
+            "configurations": ["Main", "Container", "Container", "Container with wander"],
+            "preLaunchTask": "Kill All"
+        }
     ]
 }
