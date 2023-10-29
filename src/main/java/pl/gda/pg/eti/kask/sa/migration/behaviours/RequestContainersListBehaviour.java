@@ -6,6 +6,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.JADEAgentManagement.QueryPlatformLocationsAction;
 
 import jade.domain.mobility.MobilityOntology;
@@ -20,17 +21,20 @@ import pl.gda.pg.eti.kask.sa.migration.agents.MigratingAgent;
  * @author psysiu
  */
 @Log
-public class RequestContainersListBehaviour extends CyclicBehaviour {
+public class RequestContainersListBehaviour extends TickerBehaviour {
 
     protected final MigratingAgent myAgent;
-
-    public RequestContainersListBehaviour(MigratingAgent agent) {
-        super(agent);
+    /**
+     * @param period time in milliseconds
+     */
+    public RequestContainersListBehaviour(MigratingAgent agent, long period) {
+        super(agent, period);
         myAgent = agent;
     }
 
     @Override
-    public void action() {
+    protected void onTick() {
+        
         QueryPlatformLocationsAction query = new QueryPlatformLocationsAction();
         Action action = new Action(myAgent.getAMS(), query);
 

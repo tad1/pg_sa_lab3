@@ -49,7 +49,7 @@ public class ReceiveContainersLisBehaviour extends Behaviour {
             try {
                 ContentElement ce = myAgent.getContentManager().extractContent(msg);
                 jade.util.leap.List items = ((Result) ce).getItems();
-
+                
 
                 List<Location> locations = new ArrayList<>();
                 // TODO: check if that would check for refference

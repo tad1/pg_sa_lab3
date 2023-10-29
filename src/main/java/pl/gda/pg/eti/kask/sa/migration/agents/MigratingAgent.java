@@ -34,13 +34,14 @@ public class MigratingAgent extends Agent {
     @Override
     protected void setup() {
         super.setup();
+
         ContentManager cm = getContentManager();
         cm.registerLanguage(new SLCodec());
         cm.registerOntology(MobilityOntology.getInstance());
 
         this.locations = new ArrayList<>();
         this.addBehaviour(new RequestContainersListBehaviour(this, 1000));
-        this.addBehaviour(new MigratingBehaviour(this, 400));
+        this.addBehaviour(new MigratingBehaviour(this, 300));
 
 
     }
@@ -48,6 +49,10 @@ public class MigratingAgent extends Agent {
     @Override
     protected void afterMove() {
         super.afterMove();
+
+        ContentManager cm = getContentManager();
+        cm.registerLanguage(new SLCodec());
+        cm.registerOntology(MobilityOntology.getInstance());
         //restore state
         //resume threads
         // JOptionPane.showMessageDialog(null, "Przybywam!");
